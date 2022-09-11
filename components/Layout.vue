@@ -1,9 +1,9 @@
 <template>
-  <footer>
+  <header>
     <div class="inner">
-      Footer
+      Layout
     </div>
-  </footer>
+  </header>
 </template>
 
 <style scoped>

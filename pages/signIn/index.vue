@@ -7,12 +7,12 @@
 </template>
 
 <script lang="js">
-import HeaderVue from '../components/Header.vue'
-import VideoListVue from '../components/VideoList.vue'
-import FooterVue from '../components/Footer.vue'
+import HeaderVue from '../../components/Header.vue'
+import VideoListVue from '../../components/VideoList.vue'
+import FooterVue from '../../components/Footer.vue'
 
 export default {
-  name: 'IndexPage',
+  name: 'SignInPage',
   components: {
     HeaderVue,
     VideoListVue,
