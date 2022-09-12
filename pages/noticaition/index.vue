@@ -1,11 +1,11 @@
 <template>
-  <p>SignUp</p>
+  <p>NotificationPage</p>
 </template>
 
 <script lang="js">
 
 export default {
-  name: 'SignUpPage',
+  name: 'NotificationPage',
   components: {
   },
   data () {
