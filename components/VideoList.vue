@@ -1,12 +1,12 @@
 
 <template>
-  <ul className="list">
-    <li className="list_item">
-      <a className="link" href="/video/1">
+  <ul class="list">
+    <li class="list_item">
+      <a class="link" href="/video/1">
         <figure>
           <img src="" alt="">
         </figure>
-        <h2>Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
+        <h2 class="title">Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
       </a>
     </li>
     <li>
@@ -14,7 +14,7 @@
         <figure>
           <img src="" alt="">
         </figure>
-        <h2>Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
+        <h2 class="title">Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
       </a>
     </li>
     <li>
@@ -22,14 +22,20 @@
         <figure>
           <img src="" alt="">
         </figure>
-        <h2>Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
+        <h2 class="title">Video名が入ります。Video名が入ります。Video名が入ります。Video名が入ります。</h2>
       </a>
     </li>
   </ul>
 </template>
 
 <style scoped>
-ul {
+.list {
   display: flex;
+}
+
+.title {
+  font-size: 1.4rem;
+  color: #333;
+  line-height: 1.6;
 }
 </style>

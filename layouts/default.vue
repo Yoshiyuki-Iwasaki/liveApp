@@ -22,6 +22,8 @@ export default {
 
 <style>
   .content {
-    margin: 13.5rem 0;
+    margin: 8rem auto;
+    max-width: 1000px;
+    width: 90%;
   }
 </style>
