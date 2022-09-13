@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .video-block,
   .like-block,
   .comment-block {
