@@ -10,29 +10,38 @@
     </div>
     <div class="comment-block">
       <h2 class="block-ttl">コメント</h2>
-      <textarea id="" name="comment" cols="30" rows="10"></textarea>
+      <p><input v-model="content" type="text" name="content"/></p>
+      <button @click="insert">save</button>
       <ul class="list">
-        <li class="list-item"><p class="list-txt">コメントが入ります。</p></li>
-        <li class="list-item"><p class="list-txt">コメントが入ります。</p></li>
-        <li class="list-item"><p class="list-txt">コメントが入ります。</p></li>
-        <li class="list-item"><p class="list-txt">コメントが入ります。</p></li>
+        <li v-for="comment in comments" :key="comment.id" class="list-item">
+          <p class="list-txt">
+            <span>{{comment.created}}</span>
+            <span>{{comment.content}}</span>
+          </p>
+        </li>
       </ul>
     </div>
   </section>
 </template>
 
 <script lang="js">
+import { mapState } from 'vuex';
+
 export default {
   name: 'VideoPage',
-  components: {
-  },
   data () {
     return {
+      content: ''
     }
   },
   computed: {
+    ...mapState(['comments'])
   },
   methods: {
+    insert() {
+      this.$store.commit('insert', {content: this.content});
+      this.content = '';
+    }
   }
 }
 </script>
