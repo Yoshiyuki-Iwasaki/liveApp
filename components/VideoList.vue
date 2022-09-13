@@ -1,13 +1,13 @@
 
 <template>
   <ul class="list">
-    <li v-for="todo in todos" :key="todo.id" class="list-item">
-      <a class="link" :href="'video/'+todo.id">
+    <li v-for="video in videos" :key="video.id" class="list-item">
+      <a class="link" :href="'video/'+video.id">
         <figure>
           <img src="@/assets/img/thumb.png" alt="">
         </figure>
         <div class="txt-area">
-          <h2 class="title">{{ todo.ttl }}</h2>
+          <h2 class="title">{{ video.ttl }}</h2>
         </div>
       </a>
     </li>
@@ -20,7 +20,7 @@ export default {
   name: 'VideoListLayout',
   data() {
     return {
-      todos: [
+      videos: [
         { id: 1, ttl: 'Video名が入ります。Video名が入ります。'},
         { id: 2, ttl: 'Video名が入ります。Video名が入ります。'},
         { id: 3, ttl: 'Video名が入ります。Video名が入ります。'}
