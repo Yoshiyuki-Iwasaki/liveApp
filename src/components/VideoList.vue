@@ -15,18 +15,28 @@
 </template>
 
 <script>
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '@/firebase/firebase';
 
 export default {
   name: 'VideoListLayout',
   data() {
     return {
-      videos: [
-        { id: 1, ttl: 'Video名が入ります。Video名が入ります。'},
-        { id: 2, ttl: 'Video名が入ります。Video名が入ります。'},
-        { id: 3, ttl: 'Video名が入ります。Video名が入ります。'}
-      ]
+      videos: []
     };
-  }
+  },
+  async mounted () {
+    const querySnapshot = await getDocs(collection(db, "videos"));
+    const fbVideos = [];
+    querySnapshot.forEach((doc) => {
+      const todo = {
+        id: doc.id,
+        ttl: doc.data().ttl,
+      }
+      fbVideos.push(todo);
+    });
+    this.videos = fbVideos;
+  },
 }
 </script>
 
