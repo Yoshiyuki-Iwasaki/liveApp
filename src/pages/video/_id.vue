@@ -11,12 +11,11 @@
     <div class="comment-block">
       <h2 class="block-ttl">コメント</h2>
       <p><input v-model="content" type="text" name="content"/></p>
-      <button @click="insert">save</button>
       <ul class="list">
         <li v-for="comment in comments" :key="comment.id" class="list-item">
           <p class="list-txt">
-            <span>{{comment.created}}</span>
-            <span>{{comment.content}}</span>
+            <span>{{comment.createdAt.toDate() | moment}}</span>
+            <span>{{comment.text}}</span>
           </p>
         </li>
       </ul>
@@ -24,25 +23,37 @@
   </section>
 </template>
 
-<script lang="js">
-import { mapState } from 'vuex';
+<script>
+import { collection, getDocs } from "firebase/firestore";
+import moment from 'moment';
+import firebase from '@/firebase/firebase';
 
 export default {
   name: 'VideoPage',
+  filters: {
+    moment (date) {
+      return moment(date).format('YYYY/MM/DD HH:mm');
+    }
+  },
   data () {
     return {
-      content: ''
+      content: '',
+      comments: []
     }
   },
-  computed: {
-    ...mapState(['comments'])
+  async mounted() {
+    const querySnapshot = await getDocs(collection(firebase, "comments"));
+    const fbComments = [];
+    querySnapshot.forEach((doc) => {
+      const todo = {
+        id: doc.id,
+        text: doc.data().text,
+        createdAt: doc.data().createdAt,
+      }
+      fbComments.push(todo);
+    });
+    this.comments = fbComments;
   },
-  methods: {
-    insert() {
-      this.$store.commit('insert', {content: this.content});
-      this.content = '';
-    }
-  }
 }
 </script>
 

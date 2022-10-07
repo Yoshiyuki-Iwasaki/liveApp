@@ -16,7 +16,7 @@
 
 <script>
 import { collection, getDocs } from "firebase/firestore";
-import { db } from '@/firebase/firebase';
+import firebase from '@/firebase/firebase';
 
 export default {
   name: 'VideoListLayout',
@@ -26,7 +26,7 @@ export default {
     };
   },
   async mounted () {
-    const querySnapshot = await getDocs(collection(db, "videos"));
+    const querySnapshot = await getDocs(collection(firebase, "videos"));
     const fbVideos = [];
     querySnapshot.forEach((doc) => {
       const todo = {
