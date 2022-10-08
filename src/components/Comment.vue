@@ -1,7 +1,7 @@
 <template>
   <div class="comment-block">
     <h2 class="block-ttl">コメント</h2>
-    <p><input v-model="content" type="text" name="content" /></p>
+    <p><input v-model='txt' placeholder='txt' type="text" name="txt" /><button @click='postData'>登録</button></p>
     <ul class="list">
       <li v-for="comment in comments" :key="comment.id" class="list-item">
         <p class="list-txt">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
 import moment from 'moment';
 import firebase from '@/firebase/firebase';
 
@@ -27,6 +27,7 @@ export default {
   },
   data() {
     return {
+      txt: '',
       comments: []
     }
   },
@@ -42,6 +43,15 @@ export default {
       fbComments.push(todo);
     });
     this.comments = fbComments;
+  },
+  methods: {
+    async postData () {
+      await addDoc(collection(firebase, "comments"), {
+        text: this.txt,
+        createdAt: serverTimestamp()
+      });
+      this.txt = '';
+    }
   },
 }
 </script>
