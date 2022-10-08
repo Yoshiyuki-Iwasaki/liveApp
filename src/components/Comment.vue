@@ -1,7 +1,7 @@
 <template>
   <div class="comment-block">
     <h2 class="block-ttl">コメント</h2>
-    <p><input v-model='txt' placeholder='txt' type="text" name="txt" /><button @click='postData'>登録</button></p>
+    <p><input v-model='txt' placeholder='txt' type="text" name="txt" /><button @click='addComment'>登録</button></p>
     <ul class="list">
       <li v-for="comment in comments" :key="comment.id" class="list-item">
         <p class="list-txt">
@@ -45,9 +45,11 @@ export default {
     this.comments = fbComments;
   },
   methods: {
-    async postData () {
+    async addComment () {
       await addDoc(collection(firebase, "comments"), {
         text: this.txt,
+        video_id: 1,
+        user_id: 1,
         createdAt: serverTimestamp()
       });
       this.txt = '';
