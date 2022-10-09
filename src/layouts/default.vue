@@ -1,21 +1,15 @@
 <template>
   <div class="container">
-    <HeaderVue/>
+    <HeaderVue />
     <div class="content">
       <Nuxt />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import HeaderVue from '../components/Header.vue'
 
-export default {
-  name: 'DefaultLayout',
-  components: {
-    HeaderVue,
-  },
-}
 </script>
 
 <style>
