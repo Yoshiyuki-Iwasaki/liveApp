@@ -2,13 +2,47 @@
   <header>
     <div class="inner">
       <h1 class="title"><a href="/" class="logo-link">Logo</a></h1>
-      <ul class="list">
+      <ul v-if="userInfo.email" class="list">
         <li class="list-item"><a class="list-link" href="/notification">通知</a></li>
         <li class="list-item"><a class="list-link" href="/profile">プロフィール</a></li>
+        <li class="list-item"><a class="list-link" @click='handleSignOut'>ログアウト</a></li>
+      </ul>
+      <ul v-else class="list">
+        <li class="list-item"><a class="list-link" href="/signIn">ログイン</a></li>
+        <li class="list-item"><a class="list-link" href="/signUp">ユーザー登録</a></li>
       </ul>
     </div>
   </header>
 </template>
+
+<script>
+import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
+let auth;
+export default {
+  data() {
+    return {
+      userInfo: [],
+    }
+  },
+  mounted() {
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.userInfo = user
+      }
+    })
+  },
+  methods: {
+    handleSignOut() {
+      auth = getAuth();
+      signOut(auth).then(() => {
+        // this.$router.push('/');
+      })
+    }
+  }
+}
+
+</script>
 
 <style scoped lang="scss">
 .inner {
