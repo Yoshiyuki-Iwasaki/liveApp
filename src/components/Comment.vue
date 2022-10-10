@@ -14,10 +14,11 @@
 </template>
 
 <script>
-import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, addDoc, where, query, serverTimestamp } from "firebase/firestore";
 import moment from 'moment';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import firebase from '@/firebase/firebase';
-
+let auth;
 export default {
   name: 'Comment',
   filters: {
@@ -28,16 +29,25 @@ export default {
   data() {
     return {
       txt: '',
-      comments: []
+      comments: [],
+      userInfo: [],
     }
   },
   async mounted() {
-    const querySnapshot = await getDocs(collection(firebase, "comments"));
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.userInfo = user
+      }
+    })
+    const q = query(collection(firebase, "comments"), where("video_id", "==", this.$router.history.current.params.id));
+    const querySnapshot = await getDocs(q);
     const fbComments = [];
     querySnapshot.forEach((doc) => {
       const todo = {
         id: doc.id,
         text: doc.data().text,
+        video_id: doc.data().video_id,
         createdAt: doc.data().createdAt,
       }
       fbComments.push(todo);
@@ -48,8 +58,8 @@ export default {
     async addComment () {
       await addDoc(collection(firebase, "comments"), {
         text: this.txt,
-        video_id: 1,
-        user_id: 1,
+        video_id: this.$router.history.current.params.id,
+        user_id: this.userInfo.uid,
         createdAt: serverTimestamp()
       });
       this.txt = '';
