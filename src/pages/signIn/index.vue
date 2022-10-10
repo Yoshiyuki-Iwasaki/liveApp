@@ -1,6 +1,7 @@
 <template>
   <div class="inner">
     <h1 class="ttl">ログイン画面</h1>
+    <p v-if="errorMsg" class="errorMsg">{{errorMsg}}</p>
     <form class="form" @submit.prevent="loginUser">
       <div class="form-list">
         <label class="form-label" for="email">メールアドレス:</label>
@@ -17,27 +18,35 @@
   </div>
 </template>
 
-<script lang="js">
+<script setup>
+import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+const email = ref('');
+const errorMsg = ref('');
+const password = ref('');
 
-export default {
-  name: 'SignInPage',
-  methods: {
-    loginUser() {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then(function () {
-          this.$router.push('/');
-        })
-        .catch(function (error) {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
-    }
-  },
+const loginUser = () => {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then(function () {
+      this.$router.push('/');
+    })
+    .catch(function (error) {
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorMsg.value = 'Invalid email.'
+          break;
+        case "auth/user-not-found":
+          errorMsg.value = 'No account with that email was found.'
+          break;
+        case "auth/wrong-password":
+          errorMsg.value = 'Incorrect password.'
+          break;
+        default:
+          errorMsg.value = 'Email or password was incorrect.'
+          break;
+      }
+    });
 }
 </script>
 
@@ -49,8 +58,14 @@ export default {
   border: .1rem solid #333;
 }
 .ttl {
+  margin-bottom: 2rem;
   text-align: center;
   font-size: 1.8rem;
+  font-weight: 700;
+}
+.errorMsg {
+  font-size: 1.2rem;
+  color: red;
   font-weight: 700;
 }
 .form {
