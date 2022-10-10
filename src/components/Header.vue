@@ -36,9 +36,9 @@ export default {
     handleSignOut() {
       auth = getAuth();
       signOut(auth).then(() => {
-        // this.$router.push('/');
       })
-    }
+      this.$router.push('/signIn');
+    },
   }
 }
 
