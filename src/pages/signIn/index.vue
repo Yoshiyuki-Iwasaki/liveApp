@@ -22,12 +22,6 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
   name: 'SignInPage',
-  components: {
-  },
-  data () {
-    return {
-    }
-  },
   methods: {
     loginUser() {
       const auth = getAuth();

@@ -2,14 +2,14 @@
 <template>
   <ul class="list">
     <li v-for="video in videos" :key="video.id" class="list-item">
-      <a class="link" :href="'video/'+video.id">
+      <NuxtLink class="link" :to="'video/'+video.id">
         <figure>
           <img src="@/assets/img/thumb.png" alt="">
         </figure>
         <div class="txt-area">
           <h2 class="title">{{ video.ttl }}</h2>
         </div>
-      </a>
+      </NuxtLink>
     </li>
   </ul>
 </template>

@@ -1,15 +1,15 @@
 <template>
   <header>
     <div class="inner">
-      <h1 class="title"><a href="/" class="logo-link">Logo</a></h1>
+      <h1 class="title"><NuxtLink to="/" class="logo-link">Logo</NuxtLink></h1>
       <ul v-if="userInfo.email" class="list">
-        <li class="list-item"><a class="list-link" href="/notification">通知</a></li>
-        <li class="list-item"><a class="list-link" href="/profile">プロフィール</a></li>
-        <li class="list-item"><a class="list-link" @click='handleSignOut'>ログアウト</a></li>
+        <li class="list-item"><NuxtLink class="list-link" to="/notification">通知</NuxtLink></li>
+        <li class="list-item"><NuxtLink class="list-link" to="/profile">プロフィール</NuxtLink></li>
+        <li class="list-item"><button class="list-link" @click='handleSignOut'>ログアウト</button></li>
       </ul>
       <ul v-else class="list">
-        <li class="list-item"><a class="list-link" href="/signIn">ログイン</a></li>
-        <li class="list-item"><a class="list-link" href="/signUp">ユーザー登録</a></li>
+        <li class="list-item"><NuxtLink class="list-link" to="/signIn">ログイン</NuxtLink></li>
+        <li class="list-item"><NuxtLink class="list-link" to="/signUp">ユーザー登録</NuxtLink></li>
       </ul>
     </div>
   </header>
