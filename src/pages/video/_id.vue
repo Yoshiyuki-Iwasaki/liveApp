@@ -1,31 +1,50 @@
 <template>
   <section>
-    <h1 class="ttl">Video詳細</h1>
-    <div class="video-block">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/jfKfPfyJRdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div>
+      <h1 class="ttl">{{videos.ttl}}</h1>
+      <div class="video-block">
+        <iframe
+width="560" height="315" :src="videos.videoUrl" title="YouTube video player"
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <Like />
+      <Comment />
     </div>
-    <Like />
-    <Comment />
   </section>
 </template>
 
 <script>
+import { doc, getDoc } from "firebase/firestore";
 import Comment from '../../components/Comment.vue';
 import Like from '../../components/Like.vue';
+import firebase from '@/firebase/firebase';
 
 export default {
-    name: "VideoPage",
-    components: { Comment, Like },
+  name: "VideoPage",
+  components: { Comment, Like },
+  data() {
+    return {
+      videos: []
+    };
+  },
+  async mounted() {
+    const docRef = doc(firebase, "videos", this.$router.history.current.params.id);
+    const docSnap = await getDoc(docRef);
+    this.videos = { ...docSnap.data() };
+    this.videos.id = docSnap.id;
+  },
 }
 </script>
 
 <style scoped lang="scss">
-  .video-block {
-    margin-top: 2rem;
-  }
+.video-block {
+  margin-top: 2rem;
+}
 
-  .ttl {
-    font-size: 2rem;
-    font-weight: 700;
-  }
+.ttl {
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
 </style>
