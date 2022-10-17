@@ -11,6 +11,7 @@
         <label class="form-label" for="password">パスワード:</label>
         <input id="password" v-model="password" class="form-input" type="password">
       </div>
+      <NuxtLink to="/passwordReset">パスワードを忘れた場合</NuxtLink>
       <div class="btn-wrap">
         <button type="submit" class="btn">ログインする</button>
       </div>
@@ -18,35 +19,52 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-const email = ref('');
-const errorMsg = ref('');
-const password = ref('');
+<script>
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+let auth;
 
-const loginUser = () => {
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email.value, password.value)
-    .then(function () {
-      this.$router.push('/');
-    })
-    .catch(function (error) {
-      switch (error.code) {
-        case "auth/invalid-email":
-          errorMsg.value = 'Invalid email.'
-          break;
-        case "auth/user-not-found":
-          errorMsg.value = 'No account with that email was found.'
-          break;
-        case "auth/wrong-password":
-          errorMsg.value = 'Incorrect password.'
-          break;
-        default:
-          errorMsg.value = 'Email or password was incorrect.'
-          break;
+export default {
+  data() {
+    return {
+      userInfo: [],
+      email: '',
+      password: '',
+      errorMsg: ''
+    }
+  },
+  mounted() {
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.$router.push('/');
       }
-    });
+    })
+  },
+  methods: {
+    loginUser() {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then(function () {
+          console.log('ログイン成功')
+        })
+        .catch(function (error) {
+          switch (error.code) {
+            case "auth/invalid-email":
+              this.errorMsg = 'Invalid email.'
+              break;
+            case "auth/user-not-found":
+              this.errorMsg = 'No account with that email was found.'
+              break;
+            case "auth/wrong-password":
+              this.errorMsg = 'パスワードが誤ってます。'
+              break;
+            default:
+              this.errorMsg = 'パスワードが誤ってます。02'
+              break;
+          }
+        });
+    }
+  }
 }
 </script>
 
