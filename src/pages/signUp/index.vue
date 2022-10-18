@@ -18,35 +18,45 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-const email = ref('');
-const errorMsg = ref('');
-const password = ref('');
 
-const registerUser = () => {
-  const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then(function () {
-      $router.push('/signIn');
-    })
-    .catch((error) => {
-      switch (error.code) {
-        case "auth/invalid-email":
-          errorMsg.value = 'Invalid email.'
-          break;
-        case "auth/user-not-found":
-          errorMsg.value = 'No account with that email was found.'
-          break;
-        case "auth/wrong-password":
-          errorMsg.value = 'Incorrect password.'
-          break;
-        default:
-          errorMsg.value = 'Email or password was incorrect.'
-          break;
+export default {
+  data() {
+    return {
+      userInfo: [],
+      email: '',
+      password: '',
+      errorMsg: '',
+    }
+  },
+  methods: {
+    registerUser() {
+      const auth = getAuth();
+      const self = this; // thisのreference用変数(self)作成
+      const router = this.$router; // thisのreference用変数(self)作成
+      createUserWithEmailAndPassword(auth, this.email, this.password)
+        .then(function () {
+          self.email = '';
+          self.password = '';
+          router.push('/signIn');
+        })
+        .catch((error) => {
+          switch (error.code) {
+            case "auth/invalid-email":
+              self.errorMsg = '正しいメールアドレスを入力してください。.'
+              break;
+            case "auth/email-already-in-use":
+              self.errorMsg = 'すでに登録されているメールアドレスです'
+              break;
+            default:
+              self.errorMsg = error.code
+              console.log('error', error);
+              break;
+          }
+        });
       }
-    });
+    }
   }
 </script>
 
