@@ -1,7 +1,7 @@
 <template>
   <div class="inner">
     <h1 class="ttl">ログイン画面</h1>
-    <p v-if="errormsg" class="errormsg">{{errormsg}}</p>
+    <p v-if="errorMsg" class="errorMsg">{{errorMsg}}</p>
     <form class="form" @submit.prevent="loginUser">
       <div class="form-list">
         <label class="form-label" for="email">メールアドレス:</label>
@@ -31,7 +31,7 @@ export default {
       userInfo: [],
       email: '',
       password: '',
-      errormsg: ''
+      errorMsg: ''
     }
   },
   mounted() {
@@ -50,16 +50,16 @@ export default {
         .catch(function (error) {
           switch (error.code) {
             case "auth/invalid-email":
-              self.errormsg = '正しいメールアドレスを入力してください。.'
+              self.errorMsg = '正しいメールアドレスを入力してください。.'
               break;
             case "auth/user-not-found":
-              self.errormsg = '入力いただいたメールアドレスを使用するアカウントは見つかりませんでした。'
+              self.errorMsg = '入力いただいたメールアドレスを使用するアカウントは見つかりませんでした。'
               break;
             case "auth/wrong-password":
-              self.errormsg = 'パスワードが誤ってます。'
+              self.errorMsg = 'パスワードが誤ってます。'
               break;
             default:
-              self.errormsg = '正しいメールアドレスとパスワードを入力してください。'
+              self.errorMsg = '正しいメールアドレスとパスワードを入力してください。'
             break;
           }
         });
@@ -81,7 +81,7 @@ export default {
   font-size: 1.8rem;
   font-weight: 700;
 }
-.errormsg {
+.errorMsg {
   font-size: 1.2rem;
   color: red;
   font-weight: 700;
