@@ -1,0 +1,40 @@
+{
+  "functions": [
+    {
+      "source": "./functions/",
+      "predeploy": [
+        "npm --prefix \"$PROJECT_DIR\" install",
+        "npm --prefix \"$PROJECT_DIR\" run build"
+      ],
+      "runtime": "nodejs12",
+      "codebase": "default"
+    },
+    {
+      "source": "test",
+      "codebase": "test",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": true
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
