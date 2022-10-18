@@ -53,23 +53,23 @@ const registerUser = () => {
 <style scoped lang="scss">
 .inner {
   margin: 0 auto;
-  padding: 2rem;
-  width: 40rem;
-  border: .1rem solid #333;
+  padding: 4rem 3rem;
+  width: 45rem;
+  border: 0.2rem solid #333;
 }
 
 .ttl {
   margin-bottom: 2rem;
   text-align: center;
   font-size: 1.8rem;
-  color: red;
   font-weight: 700;
 }
 
-.errorMsg {
+.errormsg {
   font-size: 1.2rem;
   color: red;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .form {
