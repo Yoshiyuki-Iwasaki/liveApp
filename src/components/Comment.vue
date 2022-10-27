@@ -4,10 +4,11 @@
     <p><input v-model='txt' placeholder='txt' type="text" name="txt" /><button @click='addComment'>登録</button></p>
     <ul class="list">
       <li v-for="comment in comments" :key="comment.id" class="list-item">
-        <p class="list-txt">
+        <div class="list-txt">
           <span>{{comment.createdAt.toDate() | moment}}</span>
-          <span>{{comment.text}}</span>
-        </p>
+          <a :href="'/profile/' + comment.user_id"><span>{{ comment.user_id }}</span></a>
+          <span>{{ comment.text }}</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -36,21 +37,23 @@ export default {
   async mounted() {
     auth = getAuth();
     onAuthStateChanged(auth, (user) => {
+      this.userInfo = [];
       if (user) {
         this.userInfo = user
       }
     })
-    const q = query(collection(firebase, "comments"), where("video_id", "==", this.$router.history.current.params.id));
-    const querySnapshot = await getDocs(q);
+    const commentsQuery = query(collection(firebase, "comments"), where("video_id", "==", this.$router.history.current.params.id));
+    const commentsQuerySnapshot = await getDocs(commentsQuery);
     const fbComments = [];
-    querySnapshot.forEach((doc) => {
-      const todo = {
-        id: doc.id,
-        text: doc.data().text,
-        video_id: doc.data().video_id,
-        createdAt: doc.data().createdAt,
+    commentsQuerySnapshot.forEach((docs) => {
+      const comment = {
+        id: docs.id,
+        text: docs.data().text,
+        video_id: docs.data().video_id,
+        user_id: docs.data().user_id,
+        createdAt: docs.data().createdAt,
       }
-      fbComments.push(todo);
+      fbComments.push(comment);
     });
     this.comments = fbComments;
   },
