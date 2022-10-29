@@ -17,9 +17,10 @@
 <script>
 import { collection, getDocs } from "firebase/firestore";
 import { getStorage, getDownloadURL, ref, } from "firebase/storage";
+import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
 
-export default {
+export default defineComponent({
   name: 'VideoListLayout',
   data() {
     return {
@@ -48,7 +49,7 @@ export default {
         console.log('error', error)
       });
   },
-}
+})
 </script>
 
 <style scoped lang="scss">

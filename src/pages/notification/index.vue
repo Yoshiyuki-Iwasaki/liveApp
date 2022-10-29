@@ -6,8 +6,9 @@
 
 <script lang="js">
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { defineComponent } from 'vue';
 let auth;
-export default {
+export default defineComponent({
   name: 'NotificationPage',
   components: {
   },
@@ -25,7 +26,7 @@ export default {
       }
     })
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

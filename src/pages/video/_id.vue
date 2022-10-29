@@ -16,11 +16,12 @@ width="560" height="315" :src="videos.videoUrl" title="YouTube video player"
 
 <script>
 import { doc, getDoc } from "firebase/firestore";
+import { defineComponent } from 'vue';
 import Comment from '../../components/Comment.vue';
 import Like from '../../components/Like.vue';
 import firebase from '@/firebase/firebase';
 
-export default {
+export default defineComponent({
   name: "VideoPage",
   components: { Comment, Like },
   data() {
@@ -34,7 +35,7 @@ export default {
     this.videos = { ...docSnap.data() };
     this.videos.id = docSnap.id;
   },
-}
+})
 </script>
 
 <style scoped lang="scss">

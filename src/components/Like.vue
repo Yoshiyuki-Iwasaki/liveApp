@@ -9,9 +9,10 @@
 <script>
 import { collection, doc, getDocs, addDoc, deleteDoc, where, query, serverTimestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
 let auth;
-export default {
+export default defineComponent({
   name: 'Like',
   data() {
     return {
@@ -52,7 +53,7 @@ export default {
       await deleteDoc(doc(firebase, "likes", likes.id));
     }
   },
-}
+})
 </script>
 
 <style scoped lang="scss">

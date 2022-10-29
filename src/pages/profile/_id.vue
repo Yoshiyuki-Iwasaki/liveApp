@@ -10,9 +10,10 @@
 <script lang="js">
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
 let auth;
-export default {
+export default defineComponent({
   name: 'ProfilePage',
   components: {
   },
@@ -44,7 +45,7 @@ export default {
     });
     this.users = fbUsers;
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

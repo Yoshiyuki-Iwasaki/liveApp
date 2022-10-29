@@ -17,8 +17,9 @@
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
+import { defineComponent } from 'vue';
 let auth;
-export default {
+export default defineComponent({
   data() {
     return {
       userInfo: [],
@@ -44,7 +45,7 @@ export default {
       return url
     },
   }
-}
+})
 
 </script>
 

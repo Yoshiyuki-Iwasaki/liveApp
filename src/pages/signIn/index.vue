@@ -23,9 +23,10 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-let auth;
 
-export default {
+import { defineComponent } from 'vue';
+let auth;
+export default defineComponent({
   data() {
     return {
       userInfo: [],
@@ -43,7 +44,7 @@ export default {
     })
   },
   methods: {
-    loginUser() {;
+    loginUser() {
       const auth = getAuth();
       const self = this; // thisのreference用変数(self)作成
       signInWithEmailAndPassword(auth, this.email, this.password)
@@ -65,7 +66,7 @@ export default {
         });
     }
   }
-}
+})
 </script>
 
 <style scoped lang="scss">

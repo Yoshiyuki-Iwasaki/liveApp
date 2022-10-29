@@ -20,8 +20,9 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   data() {
     return {
       userInfo: [],
@@ -57,7 +58,7 @@ export default {
         });
       }
     }
-  }
+  })
 </script>
 
 <style scoped lang="scss">

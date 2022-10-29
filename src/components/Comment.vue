@@ -18,9 +18,10 @@
 import { collection, getDocs, addDoc, where, query, serverTimestamp } from "firebase/firestore";
 import moment from 'moment';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
 let auth;
-export default {
+export default defineComponent({
   name: 'Comment',
   filters: {
     moment(date) {
@@ -68,7 +69,7 @@ export default {
       this.txt = '';
     }
   },
-}
+})
 </script>
 
 <style scoped lang="scss">
