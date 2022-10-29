@@ -1,12 +1,13 @@
 <template>
   <div class="like-block">
     <h2 class="block-ttl">いいね</h2>
-    <button @click='addLike'>いいねマーク</button>
+    <button v-if="likes[0]" @click='removeLike(likes[0])'>いいね済み</button>
+    <button v-else @click='addLike'>いいねマーク</button>
   </div>
 </template>
 
 <script>
-import { collection, getDocs, addDoc, where, query, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDocs, addDoc, deleteDoc, where, query, serverTimestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import firebase from '@/firebase/firebase';
 let auth;
@@ -15,37 +16,40 @@ export default {
   data() {
     return {
       userInfo: [],
+      likes: [],
     }
   },
-  async mounted() {
+  mounted() {
     auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      this.userInfo.uid = '';
       if (user) {
         this.userInfo = user
+        this.fetchLike(user.uid)
       }
     })
-    const q = query(collection(firebase, "likes"), where("video_id", "==", this.$router.history.current.params.id));
-    // const q = query(collection(firebase, "likes"), where("video_id", "==", this.$router.history.current.params.id), where("user_id", "==", this.userInfo.uid));
-    const querySnapshot = await getDocs(q);
-    const fbComments = [];
-    querySnapshot.forEach((doc) => {
-      const todo = {
-        user_id: doc.data().user_id,
-        video_id: doc.data().video_id,
-        createdAt: doc.data().createdAt,
-      }
-      fbComments.push(todo);
-    });
-    this.comments = fbComments;
   },
   methods: {
+    async fetchLike(userId) {
+      const likesQuery = query(collection(firebase, "likes"), where("video_id", "==", this.$router.history.current.params.id), where("user_id", "==", userId));
+      const likesQuerySnapshot = await getDocs(likesQuery);
+      const fbLikes = [];
+      likesQuerySnapshot.forEach((doc) => {
+        const like = {
+          id: doc.id,
+        }
+        fbLikes.push(like);
+      });
+      this.likes = fbLikes;
+    },
     async addLike() {
       await addDoc(collection(firebase, "likes"), {
         video_id: this.$router.history.current.params.id,
         user_id: this.userInfo.uid,
         createdAt: serverTimestamp()
       });
+    },
+    async removeLike(likes) {
+      await deleteDoc(doc(firebase, "likes", likes.id));
     }
   },
 }
