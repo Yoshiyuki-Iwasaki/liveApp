@@ -10,6 +10,11 @@ width="560" height="315" :src="videos.videoUrl" title="YouTube video player"
       </div>
       <Like />
       <Comment />
+      <div class="chat-block">
+        <NuxtLink class="link" :to="pageUrl('chatroom')">
+          チャット
+        </NuxtLink>
+      </div>
     </div>
   </section>
 </template>
@@ -35,11 +40,18 @@ export default defineComponent({
     this.videos = { ...docSnap.data() };
     this.videos.id = docSnap.id;
   },
+  methods: {
+    pageUrl(page) {
+      const url = "/" + page + "/" + this.$router.history.current.params.id
+      return url
+    },
+  }
 })
 </script>
 
 <style scoped lang="scss">
-.video-block {
+.video-block,
+.chat-block {
   margin-top: 2rem;
 }
 
