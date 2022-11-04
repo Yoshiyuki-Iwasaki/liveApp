@@ -2,7 +2,7 @@
   <div class="like-block">
     <h2 class="block-ttl">いいね</h2>
     <button v-if="likes[0]" @click='removeLike(likes[0])'>いいね済み</button>
-    <button v-else @click='addLike'>いいねマーク</button>
+    <button v-else @click='addLike'>いいねボタン</button>
   </div>
 </template>
 
