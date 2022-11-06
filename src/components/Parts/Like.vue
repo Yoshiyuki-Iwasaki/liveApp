@@ -1,9 +1,6 @@
 <template>
-  <div class="like-block">
-    <h2 class="block-ttl">いいね</h2>
-    <button v-if="likes[0]" @click='removeLike(likes[0])'>いいね済み</button>
-    <button v-else @click='addLike'>いいねボタン</button>
-  </div>
+  <button v-if="likes[0]" class="like-block" @click='removeLike(likes[0])'>いいね済み</button>
+  <button v-else class="like-block" @click='addLike'>いいねボタン</button>
 </template>
 
 <script>
@@ -61,8 +58,4 @@ export default defineComponent({
   margin-top: 2rem;
 }
 
-.block-ttl {
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-}
 </style>

@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import HeaderVue from '../components/Header.vue'
+import HeaderVue from '../components/Views/Header.vue'
 
 </script>
 

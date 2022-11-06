@@ -22,8 +22,8 @@ width="560" height="315" :src="videos.videoUrl" title="YouTube video player"
 <script>
 import { doc, getDoc } from "firebase/firestore";
 import { defineComponent } from 'vue';
-import Comment from '../../components/Comment.vue';
-import Like from '../../components/Like.vue';
+import Comment from '../../components/Views/CommentSec.vue';
+import Like from '../../components/Parts/Like.vue';
 import firebase from '@/firebase/firebase';
 
 export default defineComponent({

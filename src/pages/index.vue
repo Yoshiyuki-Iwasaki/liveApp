@@ -2,9 +2,9 @@
   <VideoListVue />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue';
-import VideoListVue from '../components/VideoList.vue'
+import VideoListVue from '../components/Views/VideoList.vue'
 
 export default defineComponent({
   name: 'IndexPage',
