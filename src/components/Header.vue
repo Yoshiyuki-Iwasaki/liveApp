@@ -3,7 +3,7 @@
     <div class="inner">
       <h1 class="title"><NuxtLink to="/" class="logo-link">LiveApp</NuxtLink></h1>
       <ul v-if="userInfo.email" class="list">
-        <li class="list-item"><NuxtLink class="list-link" :to="pageUrl('notification')">通知</NuxtLink></li>
+        <li class="list-item"><NuxtLink class="list-link" to="/notification">通知</NuxtLink></li>
         <li class="list-item"><NuxtLink class="list-link" :to="pageUrl('profile')">プロフィール</NuxtLink></li>
         <li class="list-item"><button class="list-link" @click='handleSignOut'>ログアウト</button></li>
       </ul>
