@@ -1,11 +1,11 @@
 <template>
-    <div class="list-txt">
-      <a :href="'/profile/' + comment.user_id">
-        <span>{{ comment.createdAt.toDate() | moment }}</span>
-        <span>{{ comment.user_id }}</span>
-        <span>{{ comment.text }}</span>
-      </a>
-    </div>
+  <div class="list-txt">
+    <a :href="'/profile/' + comment.user_id">
+      <span>{{ comment.createdAt.toDate() | moment }}</span>
+      <span>{{ comment.user_id }}</span>
+      <span>{{ comment.text }}</span>
+    </a>
+  </div>
 </template>
 
 <script>
