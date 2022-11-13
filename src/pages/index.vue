@@ -1,15 +1,15 @@
 <template>
-  <VideoListVue />
+  <VideoSec />
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import VideoListVue from '../components/Views/VideoList.vue'
+import VideoSec from '@/components/Views/VideoSec.vue'
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'TopPage',
   components: {
-    VideoListVue,
+    VideoSec,
   },
 });
 </script>

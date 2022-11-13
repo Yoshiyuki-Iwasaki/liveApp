@@ -1,22 +1,21 @@
 
 <template>
-  <ul class="list">
-    <li v-for="video in videos" :key="video.id" class="list-item">
-      <Video :video="video" />
-    </li>
-  </ul>
+  <NuxtLink class="link" :to="'video/'+video.id">
+    <figure>
+      <img :src=video.thumb :alt=video.ttl >
+    </figure>
+    <div class="txt-area">
+      <h2 class="title">{{ video.ttl }}</h2>
+    </div>
+  </NuxtLink>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import Video from '@/components/Parts/Video.vue'
 
 export default defineComponent({
-  name: 'VideoList',
-  components: {
-    Video,
-  },
-  props: ['videos'],
+  name: 'Video',
+  props: ['video'],
 })
 </script>
 
