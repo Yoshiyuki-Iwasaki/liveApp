@@ -2,31 +2,22 @@
   <div class="comment-block">
     <h2 class="block-ttl">コメント</h2>
     <p><input v-model='txt' placeholder='txt' type="text" name="txt" /><button @click='addComment'>登録</button></p>
-    <ul class="list">
-      <li v-for="comment in comments" :key="comment.id" class="list-item">
-        <div class="list-txt">
-          <span>{{comment.createdAt.toDate() | moment}}</span>
-          <a :href="'/profile/' + comment.user_id"><span>{{ comment.user_id }}</span></a>
-          <span>{{ comment.text }}</span>
-        </div>
-      </li>
-    </ul>
+    <CommentList :comments="comments" />
   </div>
 </template>
 
 <script>
 import { collection, getDocs, addDoc, where, query, serverTimestamp } from "firebase/firestore";
-import moment from 'moment';
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
+import CommentList from '~/components/Templates/CommentList.vue';
+
 let auth;
 export default defineComponent({
-  name: 'Comment',
-  filters: {
-    moment(date) {
-      return moment(date).format('YYYY/MM/DD HH:mm');
-    }
+  name: 'CommentSec',
+  components: {
+    CommentList,
   },
   data() {
     return {
@@ -80,13 +71,5 @@ export default defineComponent({
 .block-ttl {
   margin-bottom: 1rem;
   font-size: 1.4rem;
-}
-
-.list {
-  margin-top: 1rem;
-}
-
-.list-item {
-  margin-top: 1rem;
 }
 </style>
