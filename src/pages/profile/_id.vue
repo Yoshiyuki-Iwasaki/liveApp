@@ -4,15 +4,19 @@
     <div class="txtArea">
       <p class="email">email: {{ users[0] && users[0].email}}</p>
     </div>
-    <Follow />
+    <div v-if="users[0].id !== userInfo.uid">
+      <Follow />
+    </div>
   </div>
 </template>
 
 <script lang="js">
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { defineComponent } from 'vue';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import firebase from '@/firebase/firebase';
 import Follow from '@/components/Parts/Follow';
+let auth;
 export default defineComponent({
   name: 'ProfilePage',
   components: {
@@ -24,13 +28,19 @@ export default defineComponent({
     }
   },
   async mounted() {
-
+    auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      this.userInfo = [];
+      if (user) {
+        this.userInfo = user
+      }
+    })
     const usersQuery = query(collection(firebase, "users"), where("uid", "==", this.$router.history.current.params.id));
     const usersQuerySnapshot = await getDocs(usersQuery);
     const fbUsers = [];
     usersQuerySnapshot.forEach((docs) => {
       const user = {
-        id: docs.uid,
+        id: docs.id,
         email: docs.data().email,
         createdAt: docs.data().createdAt,
       }
