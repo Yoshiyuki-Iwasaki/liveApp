@@ -4,8 +4,7 @@
     <div class="txtArea">
       <p class="email">email: {{ users[0] && users[0].email}}</p>
     </div>
-    <button v-if="follow[0]" @click='removeFollow(follow[0])'>フォロー済み</button>
-    <button v-else @click='addFollow'>フォローボタン</button>
+    <Follow follow="follow" add-follow="addFollow" remove-follow="removeFollow"/>
   </div>
 </template>
 
@@ -14,10 +13,12 @@ import { collection, doc, getDocs, addDoc, deleteDoc, where, query, serverTimest
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
+import Follow from '@/components/Parts/Follow';
 let auth;
 export default defineComponent({
   name: 'ProfilePage',
   components: {
+    Follow
   },
   data () {
     return {
