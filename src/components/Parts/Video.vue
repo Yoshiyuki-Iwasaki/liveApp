@@ -20,16 +20,6 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 5rem;
-}
-
-.list-item {
-  flex-basis: 300px;
-  border: .1rem solid #333;
-}
 
 .link {
   display: block;

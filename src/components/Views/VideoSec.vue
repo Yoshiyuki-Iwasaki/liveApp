@@ -44,36 +44,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped lang="scss">
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 5rem;
-}
-
-.list-item {
-  flex-basis: 300px;
-  border: .1rem solid #333;
-}
-
-.link {
-  display: block;
-  height: 100%;
-  transition: opacity 0.4s;
-
-  &:hover {
-    opacity: .6;
-  }
-}
-
-.txt-area {
-  margin: 1.5rem 1rem;
-}
-
-.title {
-  font-size: 1.4rem;
-  color: #333;
-  line-height: 1.6;
-}
-</style>

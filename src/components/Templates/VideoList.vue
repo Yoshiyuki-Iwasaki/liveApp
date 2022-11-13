@@ -32,23 +32,4 @@ export default defineComponent({
   border: .1rem solid #333;
 }
 
-.link {
-  display: block;
-  height: 100%;
-  transition: opacity 0.4s;
-
-  &:hover {
-    opacity: .6;
-  }
-}
-
-.txt-area {
-  margin: 1.5rem 1rem;
-}
-
-.title {
-  font-size: 1.4rem;
-  color: #333;
-  line-height: 1.6;
-}
 </style>
