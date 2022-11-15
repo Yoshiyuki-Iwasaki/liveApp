@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { collection, getDocs, addDoc, where, query, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, where, query, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { defineComponent } from 'vue';
 import firebase from '@/firebase/firebase';
@@ -35,19 +35,26 @@ export default defineComponent({
       }
     })
     const commentsQuery = query(collection(firebase, "comments"), where("video_id", "==", this.$router.history.current.params.id));
-    const commentsQuerySnapshot = await getDocs(commentsQuery);
     const fbComments = [];
-    commentsQuerySnapshot.forEach((docs) => {
-      const comment = {
-        id: docs.id,
-        text: docs.data().text,
-        video_id: docs.data().video_id,
-        user_id: docs.data().user_id,
-        createdAt: docs.data().createdAt,
-      }
-      fbComments.push(comment);
+    await onSnapshot(commentsQuery, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          console.log('change.doc.data()', change.doc.data());
+
+          const comment = {
+            id: change.doc.id,
+            text: change.doc.data().text,
+            video_id: change.doc.data().video_id,
+            user_id: change.doc.data().user_id,
+            createdAt: change.doc.data().createdAt,
+          }
+          fbComments.push(comment);
+          console.log('comment', comment)
+        }
+      });
+      console.log('fbComments', fbComments);
+      this.comments = fbComments;
     });
-    this.comments = fbComments;
   },
   methods: {
     async addComment () {
