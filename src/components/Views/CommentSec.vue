@@ -39,8 +39,6 @@ export default defineComponent({
     await onSnapshot(commentsQuery, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
-          console.log('change.doc.data()', change.doc.data());
-
           const comment = {
             id: change.doc.id,
             text: change.doc.data().text,
@@ -49,10 +47,8 @@ export default defineComponent({
             createdAt: change.doc.data().createdAt,
           }
           fbComments.push(comment);
-          console.log('comment', comment)
         }
       });
-      console.log('fbComments', fbComments);
       this.comments = fbComments;
     });
   },
